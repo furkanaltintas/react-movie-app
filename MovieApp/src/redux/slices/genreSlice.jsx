@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { API_GENRE, API_KEY } from '../../constants/api';
+import { API_GENRE, API_KEY } from '../../constants/api'
 import axios from 'axios'
 
 const initialState = {
@@ -7,9 +7,8 @@ const initialState = {
 }
 
 export const getGenre = createAsyncThunk('getGenres', async () => {
-    const res = await axios.get(`${API_GENRE}?api_key=${API_KEY}`);
-    console.log(res);
-    return res.data.genres;
+    const res = await axios.get(`${API_GENRE}?api_key=${API_KEY}`)
+    return res.data.genres
 })
 
 export const genreSlice = createSlice({
@@ -23,7 +22,5 @@ export const genreSlice = createSlice({
 
     }
 })
-
-// export const { } = genreSlice.actions
 
 export default genreSlice.reducer
