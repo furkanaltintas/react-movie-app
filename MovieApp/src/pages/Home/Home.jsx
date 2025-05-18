@@ -1,7 +1,10 @@
+import Genre from '../../components/Genre/Genre'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className="home">
+      <Genre />
+    </div>
   )
 }
 

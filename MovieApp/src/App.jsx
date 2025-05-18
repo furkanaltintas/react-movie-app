@@ -5,6 +5,7 @@ import MyList from './pages/MyList/MyList'
 import Home from './pages/Home/Home'
 
 import './App.css'
+import './css/reset.css'
 
 function App() {
   return (
