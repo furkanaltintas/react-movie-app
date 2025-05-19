@@ -5,11 +5,14 @@ import { Provider } from 'react-redux'
 import App from './App.jsx'
 
 import './index.css'
+import { GenreProvider } from './contexts/GenreContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <GenreProvider>
+        <App />
+      </GenreProvider>
     </BrowserRouter>
   </Provider>
 )

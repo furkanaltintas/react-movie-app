@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getMovieList, getMovieListByGenre } from '../../redux/slices/movieListSlice'
 
@@ -7,10 +7,13 @@ import Loading from '../Loading/Loading'
 import Error from '../Error/Error'
 
 import './MovieList.css'
+import { GenreContext } from '../../contexts/GenreContext'
 
-const MovieList = ({ selectedGenre }) => {
+const MovieList = () => {
     const { movieList, status, error } = useSelector((store) => store.movieList)
     const dispatch = useDispatch()
+
+    const { selectedGenre } = useContext(GenreContext);
 
     useEffect(() => {
         if (!selectedGenre) {

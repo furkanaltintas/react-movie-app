@@ -1,25 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getGenre } from '../../redux/slices/genreSlice';
 
 import './Genre.css'
+import { GenreContext } from '../../contexts/GenreContext';
 
-const Genre = ({ setSelectedGenre }) => {
+const Genre = () => {
     const { genres } = useSelector((store) => store.genre)
     const dispatch = useDispatch();
-
-    const [activeGenre, setActiveGenre] = useState(null);
+    
+    const { selectedGenre, setSelectedGenre } = useContext(GenreContext)
 
     const handleGenre = (genre) => {
-        if (genre.id == activeGenre) { // Seçilen genre tekrar tıklandığında filmleri temizle
+        if (genre.id == selectedGenre?.id) { // Seçilen genre tekrar tıklandığında filmleri temizle
             setSelectedGenre(null);
-            setActiveGenre(null);
             return;
         } else {
             setSelectedGenre(genre);
-            setActiveGenre(genre.id);
         }
-
     }
 
     useEffect(() => {
@@ -30,7 +28,7 @@ const Genre = ({ setSelectedGenre }) => {
         <div className="genres">
             <ul>
                 {genres && genres.map((genre, index) => (
-                    <li className={`genre ${activeGenre === genre.id ? 'active' : ''}`} onClick={() => handleGenre(genre)} key={index}>
+                    <li className={`genre ${selectedGenre && selectedGenre.id === genre.id ? 'active' : ''}`} onClick={() => handleGenre(genre)} key={index}>
                         {genre.name}
                     </li>
                 ))}

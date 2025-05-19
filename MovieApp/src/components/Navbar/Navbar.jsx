@@ -1,16 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PiFilmReelFill } from 'react-icons/pi';
 import { TiHome } from 'react-icons/ti';
 import { FaHeart } from 'react-icons/fa';
 
 import './Navbar.css';
-
+import { useContext } from 'react';
+import { GenreContext } from '../../contexts/GenreContext';
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const { setSelectedGenre } = useContext(GenreContext);
+
+    const handleClick = () => {
+        setSelectedGenre(null);
+        navigate('/'); // Aynı sayfa olsa bile tetiklenir
+    }
+
     return (
         <nav className="navbar">
             <div className="left">
-                <Link to='/'>
+                <Link onClick={handleClick}>
                     <h1>MovieApp</h1>
                 </Link>
             </div>
