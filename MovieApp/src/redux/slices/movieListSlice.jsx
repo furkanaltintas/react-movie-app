@@ -4,7 +4,8 @@ import axios from 'axios'
 
 const initialState = {
     movieList: [],
-    isLoading: false
+    status: 'idle',
+    error: null
 }
 
 export const getMovieList = createAsyncThunk('getMovieList', async () => {
@@ -17,15 +18,16 @@ export const movieListSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => { // HTTP REQUEST
-        builder.addCase(getMovieList.pending, (state) => {
-            state.isLoading = true
+        builder.addCase(getMovieList.pending, (state, action) => {
+            state.status = action.meta.requestStatus
         })
         builder.addCase(getMovieList.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.status = action.meta.requestStatus
             state.movieList = action.payload
         })
-        builder.addCase(getMovieList.rejected, (state) => {
-            state.isLoading = false
+        builder.addCase(getMovieList.rejected, (state, action) => {
+            state.status = action.meta.requestStatus
+            state.error = action.error.message
         })
     }
 })

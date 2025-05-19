@@ -4,26 +4,29 @@ import { getMovieList } from '../../redux/slices/movieListSlice'
 
 import MovieCard from '../MovieCard/MovieCard'
 import Loading from '../Loading/Loading'
+import Error from '../Error/Error'
 
 import './MovieList.css'
-const MovieList = () => {
-    const { movieList, isLoading } = useSelector((store) => store.movieList)
 
+const MovieList = () => {
+    const { movieList, status, error } = useSelector((store) => store.movieList)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getMovieList()).then(res => console.log("Movie data loaded:", res))
+        dispatch(getMovieList())
     }, [])
 
     return (
         <div className='movie-list'>
             <ul>
                 {
-                    !isLoading ?
+                    status === 'fulfilled' ?
                         movieList && movieList.map((movie) => (
                             <MovieCard movie={movie} key={movie.id} />
                         )) :
-                        <Loading />
+                        status === 'pending' ?
+                            <Loading /> :
+                            <Error error={error} />
                 }
             </ul>
         </div>
