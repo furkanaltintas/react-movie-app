@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMovieList } from '../../redux/slices/movieListSlice'
+import { getMovieList, getMovieListByGenre } from '../../redux/slices/movieListSlice'
 
 import MovieCard from '../MovieCard/MovieCard'
 import Loading from '../Loading/Loading'
@@ -8,13 +8,18 @@ import Error from '../Error/Error'
 
 import './MovieList.css'
 
-const MovieList = () => {
+const MovieList = ({ selectedGenre }) => {
     const { movieList, status, error } = useSelector((store) => store.movieList)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getMovieList())
-    }, [])
+        if (!selectedGenre) {
+            dispatch(getMovieList())
+        } else {
+            dispatch(getMovieListByGenre(selectedGenre))
+        }
+
+    }, [selectedGenre, dispatch])
 
     return (
         <div className='movie-list'>
