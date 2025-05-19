@@ -11,13 +11,20 @@ const Genre = ({ setSelectedGenre }) => {
     const [activeGenre, setActiveGenre] = useState(null);
 
     const handleGenre = (genre) => {
-        setSelectedGenre(genre.id);
-        setActiveGenre(genre.id);
+        if (genre.id == activeGenre) { // Seçilen genre tekrar tıklandığında filmleri temizle
+            setSelectedGenre(null);
+            setActiveGenre(null);
+            return;
+        } else {
+            setSelectedGenre(genre);
+            setActiveGenre(genre.id);
+        }
+
     }
 
     useEffect(() => {
         dispatch(getGenre())
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="genres">

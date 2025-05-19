@@ -35,10 +35,21 @@ export const movieListSlice = createSlice({
             state.error = action.error.message
         })
 
+
+        builder.addCase(getMovieListByGenre.pending, (state, action) => {
+            state.status = action.meta.requestStatus
+        })
+
         builder.addCase(getMovieListByGenre.fulfilled, (state, action) => {
             state.status = action.meta.requestStatus
             state.movieList = action.payload
         })
+
+        builder.addCase(getMovieListByGenre.rejected, (state, action) => {
+            state.status = action.meta.requestStatus
+            state.error = action.error.message
+        })
+
     }
 })
 

@@ -16,13 +16,14 @@ const MovieList = ({ selectedGenre }) => {
         if (!selectedGenre) {
             dispatch(getMovieList())
         } else {
-            dispatch(getMovieListByGenre(selectedGenre))
+            dispatch(getMovieListByGenre(selectedGenre.id))
         }
 
     }, [selectedGenre, dispatch])
 
     return (
         <div className='movie-list'>
+            <h1>{selectedGenre ? selectedGenre.name : 'Discover'}</h1>
             <ul>
                 {
                     status === 'fulfilled' ?
