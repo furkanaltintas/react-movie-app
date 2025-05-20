@@ -22,6 +22,10 @@ const Navbar = () => {
                 <Link onClick={handleClick}>
                     <h1>MovieApp</h1>
                 </Link>
+
+                {/* <Link to='/'>
+                    <h1>MovieApp</h1>
+                </Link> */}
             </div>
             <div className="center">
                 <PiFilmReelFill />
