@@ -15,3 +15,7 @@ export const setItemToStorage = (key, items) => {
         console.error('Save Error', error)
     }
 }
+
+export const removeItemToStorage = (key) => {
+    localStorage.removeItem(key)
+}

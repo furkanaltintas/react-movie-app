@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { PiFilmReelFill } from 'react-icons/pi';
 import { TiHome } from 'react-icons/ti';
 import { FaHeart } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import { FaHeart } from 'react-icons/fa';
 import './Navbar.css';
 import { useContext } from 'react';
 import { GenreContext } from '../../contexts/GenreContext';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -16,16 +17,14 @@ const Navbar = () => {
         navigate('/'); // Aynı sayfa olsa bile tetiklenir
     }
 
+    const favoriteCount = useSelector((store) => store.favorites.favoriteMovies.length);
+
     return (
         <nav className="navbar">
             <div className="left">
-                <Link onClick={handleClick}>
+                <Link to='/' onClick={handleClick}>
                     <h1>MovieApp</h1>
                 </Link>
-
-                {/* <Link to='/'>
-                    <h1>MovieApp</h1>
-                </Link> */}
             </div>
             <div className="center">
                 <PiFilmReelFill />
@@ -33,14 +32,15 @@ const Navbar = () => {
             <div className="right">
                 <ul>
                     <li>
-                        <Link to='/'>
+                        <NavLink to='/' className={({ isActive }) => (isActive ? 'active' : '')}>
                             <TiHome />
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to='/my-list'>
+                        <NavLink to='/my-list' className={({ isActive }) => (isActive ? 'active' : '')}>
                             <FaHeart />
-                        </Link>
+                            <div className='favorite-count'>{favoriteCount}</div>
+                        </NavLink>
                     </li>
                 </ul>
             </div>

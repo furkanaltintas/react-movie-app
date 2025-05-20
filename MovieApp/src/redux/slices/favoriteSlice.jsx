@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getItemFromStorage, setItemToStorage } from '../storage/storageService'
+import { getItemFromStorage, removeItemToStorage, setItemToStorage } from '../storage/storageService'
 
 const initialState = {
     favoriteMovies: getItemFromStorage('favorites')
@@ -16,15 +16,21 @@ export const favoriteSlice = createSlice({
                 setItemToStorage('favorites', state.favoriteMovies)
             }
         },
+
         removeFavorite: (state, action) => {
             const filteredMovies = state.favoriteMovies?.filter((movie) => movie.id !== action.payload.id)
             state.favoriteMovies = filteredMovies
             setItemToStorage('favorites', state.favoriteMovies)
+        },
+
+        removeAllFavorite: (state) => {
+            state.favoriteMovies = []
+            removeItemToStorage('favorites')
         }
     },
 })
 
-export const { addFavorite, removeFavorite } = favoriteSlice.actions
+export const { addFavorite, removeFavorite, removeAllFavorite } = favoriteSlice.actions
 export default favoriteSlice.reducer
 
 
